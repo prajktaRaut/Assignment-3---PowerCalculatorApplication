@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Power calculator page</title>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<table width="20%" bgcolor="pink" align="center">
+
+    <tr>
+        <td colspan=2><center><font size=4><b>Calculator</b></font></center></td>
+    </tr>
+
+    <tr>
+        <td>Number:</td>
+        <td><input type="text" size=25 id="numberId" required></td>
+    </tr>
+
+    <tr>
+        <td>Power:</td>
+        <td><input type="text" size=25 id="power" required></td>
+    </tr>
+
+    <tr>
+        <td><input type="submit" id="submit" value="Submit"></td>
+    </tr>
+
+    <tr>
+        <td>Result:</td>
+        <td><input type="text" id="result" size=25 name="CalculatedResult"></td>
+    </tr>
+
+</table>
+<script>
+$(document).ready(function(){
+  $("#submit").click(function(){
+
+    var result=document.getElementById("result").value
+	console.log(result)
+ 	var baseid=document.getElementById("numberId").value
+ 	var exponentid=document.getElementById("power").value
+   
+url="http:localhost:8080/calculator/getPower"
+data=JSON.stringify({
+"base":baseid,
+"exponent":exponentid})
+
+$.ajax({
+  url:url,
+  type:"POST",
+  data:data,
+  contentType:"application/json; charset=utf-8",
+  dataType:"json",
+  success: function(data){
+  
+document.getElementById("result").value=data;
+  }
+})
+  });
+});
+
+</script>
+</body>
+</html>
